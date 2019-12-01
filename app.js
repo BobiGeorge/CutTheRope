@@ -27,18 +27,22 @@ mouseConstraint = MouseConstraint.create(engine, optionz);
 World.add(world, mouseConstraint);
 
 candy = new Candy(310,350,40);
-createRopePoint(310, 160, 10);
-createRopePoint(500, 350, 10);
-createRopePoint(700,140,10);
-createRopePoint(1000, 150, 10);
 
-DoPhysics();
+SetupLevel();
+Loop();
 
-function DoPhysics(){
+function SetupLevel(){
+    createRopePoint(310, 160, 10);
+    createRopePoint(500, 350, 10);
+    createRopePoint(700,140,10);
+    createRopePoint(1000, 150, 10);
+}
+
+function Loop(){
     grahics.clear();
     Matter.Engine.update(engine);
-    //block.draw();
     candy.draw();
+    //candy.otherDraw();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
@@ -46,7 +50,7 @@ function DoPhysics(){
         ropePoints[i].draw();
         ropePoints[i].checkIfCandyInRadius(candy);
     }
-    requestAnimationFrame(DoPhysics);
+    requestAnimationFrame(Loop);
 }
 
 function candyInRopePointRange(rp){
@@ -64,8 +68,13 @@ function createRopePoint(x,y,r){
 }
 
 function resetLevel(){
-     candy = null;
-     ropes = [];
-     ropePoints = [];
+    candy = null;
+    ropes = [];
+    ropePoints = [];
 }
-    
+
+
+document.addEventListener('keydown', (e) => {
+    ropes[0].cut();
+    //candy.cut();
+});

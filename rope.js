@@ -5,6 +5,7 @@ class Rope{
         this.blocks = [];
         this.createRope(x,y);
         this.attachCandy(cndy);
+        this.constrainToCandy;
     }
 
     createRope(x, y){
@@ -35,8 +36,8 @@ class Rope{
             length: 50,
             stiffness: 1,
         }
-        let constraind = Constraint.create(options);
-        World.add(world, constraind);
+        this.constrainToCandy = Constraint.create(options);
+        World.add(world, this.constrainToCandy);
     }
 
     draw(){
@@ -46,6 +47,12 @@ class Rope{
     }
 
     cut(){
-        
+        console.log(this.blocks[1]);
+
+        for(var i = 0; i < this.blocks.length; i++){
+            Matter.World.remove(world, this.blocks[i].body, true);
+        }
+        Matter.World.remove(world, this.constrainToCandy);
+        this.blocks = [];
     }
 }

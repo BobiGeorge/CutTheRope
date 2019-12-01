@@ -4,6 +4,12 @@ class Candy{
         Body.setMass(this.body, this.body.mass*8);
         World.add(world, this.body);
         this.radius = r;
+
+        this.texture = PIXI.Texture.from("images/candy.png");
+        this.sprite = new PIXI.Sprite(this.texture);   
+        this.sprite.anchor.x = 0.5;
+        this.sprite.anchor.y = 0.5;
+       // app.stage.addChild(this.sprite);
     }
 
     draw(){
@@ -16,17 +22,16 @@ class Candy{
     }
 
     otherDraw(){
-    var texture = PIXI.Texture.from("images/candy.png");
-    var sprite = new PIXI.Sprite(texture);
-
     const pos = this.body.position;
+    this.sprite.x = pos.x;
+    this.sprite.y = pos.y;
+    }
+    
+    onDown(){
+        console.log("clickedy click");
+    };
 
-    sprite.x = pos.x;
-    sprite.y = pos.y;
-
-    sprite.anchor.x = 0.5;
-    sprite.anchor.y = 0.5;
-
-    app.stage.addChild(sprite);
+    cut(){
+        World.remove(world, this.body);
     }
 }
