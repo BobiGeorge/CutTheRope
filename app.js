@@ -26,8 +26,12 @@ candy = new Candy(310,350,40);
 SetupLevel();
 Loop();
 
+const mouse = Mouse.create();
+const optionz = {mouse: mouse}
+mouseConstraint = MouseConstraint.create(engine, optionz);
+
 function SetupLevel(){
-    createRopePoint(310, 160, 10);
+    createRopePointWithCandy(310, 160, 10);
     createRopePoint(500, 350, 10);
     createRopePoint(700,140,10);
     createRopePoint(1000, 150, 10);
@@ -48,8 +52,9 @@ function Loop(){
     requestAnimationFrame(Loop);
 }
 
-function candyInRopePointRange(rp){
+function connectRopeToCandy(rp){
     createRope(rp.posX, rp.posY);
+    rp.isCut = true;
 }
 
 function createRope(x,y){
@@ -60,6 +65,11 @@ function createRope(x,y){
 function createRopePoint(x,y,r){
     newRP = new RopePoint(x, y, r)
     ropePoints.push(newRP);
+    return newRP;
+}
+
+function createRopePointWithCandy(x,y, r){
+    connectRopeToCandy(createRopePoint(x, y, r));
 }
 
 function resetLevel(){
@@ -68,8 +78,43 @@ function resetLevel(){
     ropePoints = [];
 }
 
-
+let mouz = false;
 document.addEventListener('keydown', (e) => {
+    if(e.keyCode == 37){
     ropes[0].cut();
+    }
+    if(e.keyCode == 39){
+        if(!mouz){
+            World.add(world, mouseConstraint);
+        }else{
+            World.remove(world, mouseConstraint);
+
+        }
+        
+        mouz = !mouz;
+    }
     //candy.cut();
 });
+
+let isMouseDown = false;
+document.addEventListener('mousedown', (e) =>{
+    isMouseDown = true;
+})
+
+let previousPoint = undefined;
+document.addEventListener('mousemove', (e2) => {
+    if (isMouseDown){
+        if(previousPoint){
+            let currentPoint = {x: e2.clientX, y: e2.clientY};
+            ropes.forEach(rope => {
+                if(rope.checkForCut(currentPoint, previousPoint)){
+                }
+            });
+        }
+        previousPoint = { x: e2.clientX, y:e2.clientY}
+    }
+})
+
+document.addEventListener('mouseup', (e) =>{
+    isMouseDown = false;
+})

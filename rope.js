@@ -21,8 +21,8 @@ class Rope{
                     length: 20,
                     stiffness: 1,
                 }
-                let constrain = Constraint.create(options);
-                World.add(world, constrain);
+                let newConstraint = Constraint.create(options);
+                World.add(world, newConstraint);
             }
             this.prev = b1;
         }
@@ -47,12 +47,69 @@ class Rope{
     }
 
     cut(){
-        console.log(this.blocks[1]);
-
-        for(var i = 0; i < this.blocks.length; i++){
-            Matter.World.remove(world, this.blocks[i].body, true);
+        for(let block of this.blocks){
+            Matter.World.remove(world, block.body, true);
         }
         Matter.World.remove(world, this.constrainToCandy);
         this.blocks = [];
+    }
+
+    checkForCut(p1,p2){
+        for(let i = 0; i < this.blocks.length-1;i++){
+            let first = this.blocks[i].body.position;
+            let second = this.blocks[i+1].body.position;
+            if(this.intersectRect(this.createRect(p1, p2), this.createRect(first, second))){
+                console.log("Yes i am");
+                return true;
+            }
+            // if(this.intersects(p1, p2, first, second)){
+            //     console.log("Yes i am");
+            //     return true;
+            // }
+        }
+        return false;
+    }
+
+    intersects(l1, r1, l2, r2) {//psrq
+        console.log(l2)
+        if(l1.x > r2.x || l2.x > r1.x){
+            return false;
+        }
+        if(l1.y < r2.y || l2.y < r1.y){ 
+            return false;
+        } 
+        return true;
+    }
+
+    intersectRect(r1, r2) {
+        return !(r2.left > r1.right || 
+                r2.right < r1.left || 
+                r2.top > r1.bottom ||
+                r2.bottom < r1.top);
+    }
+
+    createRect(p1,p2){
+        let left = 0;
+        let right = 0;
+        let top = 0;
+        let bottom = 0;
+
+        if (p1.x<p2.x){
+            left = p1.x;
+            right = p2.x;
+        }else{
+            right = p1.x;
+            left = p2.x;
+        }
+
+        if (p1.y<p2.y){
+            top = p1.y;
+            bottom = p2.y;
+        }else{
+            bottom = p1.y;
+            top = p2.y;
+        }
+
+        return {left: left, right:right, top:top, bottom:bottom}
     }
 }

@@ -12,6 +12,11 @@ class Candy{
 
         this.sprite.width = r*2;
         this.sprite.height = r*2;
+
+        //this.sprite.on('mousedown', this.cut);
+        this.sprite.interactive = true;
+        this.sprite.click = this.cut;
+
         app.stage.addChild(this.sprite);
     }
 
@@ -35,6 +40,6 @@ class Candy{
     };
 
     cut(){
-        World.remove(world, this.body);
+        console.log("es");
     }
 }

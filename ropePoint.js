@@ -21,9 +21,7 @@ class RopePoint{
         }
         const pos = cndy.body.position;
         if((pos.x - this.posX)*(pos.x - this.posX) + (pos.y - this.posY)*(pos.y - this.posY) < this.attachRadiusSquare){
-            console.log("There ye are");
-            this.isCut = true;
-            candyInRopePointRange(this);
+            connectRopeToCandy(this);
         }
     }
 }
