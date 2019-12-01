@@ -9,7 +9,10 @@ class Candy{
         this.sprite = new PIXI.Sprite(this.texture);   
         this.sprite.anchor.x = 0.5;
         this.sprite.anchor.y = 0.5;
-       // app.stage.addChild(this.sprite);
+
+        this.sprite.width = r*2;
+        this.sprite.height = r*2;
+        app.stage.addChild(this.sprite);
     }
 
     draw(){

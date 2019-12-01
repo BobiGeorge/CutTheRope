@@ -21,11 +21,6 @@ world = engine.world;
 
 let grahics = new PIXI.Graphics();
 
-const mouse = Mouse.create();
-const optionz = {mouse: mouse}
-mouseConstraint = MouseConstraint.create(engine, optionz);
-World.add(world, mouseConstraint);
-
 candy = new Candy(310,350,40);
 
 SetupLevel();
@@ -41,8 +36,8 @@ function SetupLevel(){
 function Loop(){
     grahics.clear();
     Matter.Engine.update(engine);
-    candy.draw();
-    //candy.otherDraw();
+   // candy.draw();
+    candy.otherDraw();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
