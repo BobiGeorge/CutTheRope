@@ -62,23 +62,8 @@ class Rope{
                 console.log("Yes i am");
                 return true;
             }
-            // if(this.intersects(p1, p2, first, second)){
-            //     console.log("Yes i am");
-            //     return true;
-            // }
         }
         return false;
-    }
-
-    intersects(l1, r1, l2, r2) {//psrq
-        console.log(l2)
-        if(l1.x > r2.x || l2.x > r1.x){
-            return false;
-        }
-        if(l1.y < r2.y || l2.y < r1.y){ 
-            return false;
-        } 
-        return true;
     }
 
     intersectRect(r1, r2) {

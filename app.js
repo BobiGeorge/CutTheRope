@@ -108,6 +108,7 @@ document.addEventListener('mousemove', (e2) => {
             let currentPoint = {x: e2.clientX, y: e2.clientY};
             ropes.forEach(rope => {
                 if(rope.checkForCut(currentPoint, previousPoint)){
+                    rope.cut();
                 }
             });
         }
