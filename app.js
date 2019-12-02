@@ -14,12 +14,15 @@ let grahics;
 
 let cutManager;
 let levelManager;
+let guiManager;
 let replayButton;
 
 let candy;
 let frog;
 let ropes = [];
 let ropePoints = [];
+let stars = [];
+let score = 0;
 
 main();
 
@@ -49,10 +52,11 @@ function setupWorld(){
 
     cutManager = new CutManager();
     levelManager = new LevelManager();
+    guiManager = new GUIManager();
 }
 
 function loop(){
-    grahics.clear();
+    //grahics.clear();
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();

@@ -3,6 +3,7 @@ class LevelManager{
         this.setBackground();
         candy = new Candy(310,350,40);
         frog = new Frog(1200, 600, 80,80);
+        stars.push(new Star(500, 200, 40, 40, 10));
         this.createRopePointWithCandy(310, 160, 10);
         this.createRopePoint(500, 350, 10);
         this.createRopePoint(700,140,10);
@@ -43,22 +44,36 @@ class LevelManager{
         candy = null;
         ropes = [];
         ropePoints = [];
+        while(app.stage.children[0]) {
+             app.stage.removeChild(app.stage.children[0]); 
+        }
         Matter.World.clear(world);
         Matter.Engine.clear(engine);
         this.setupLevel();
+        this.replayButton.sprite.interactive = false;
     }
 
     trackCandyStatus(){
-        this.checkIfCandyInRange();
+        //check if the player reaches the frog
+        if(this.checkIfCandyInRange(frog)){
+            this.endLevel(true);
+        }
+        //check if the player goes out of boundaries
         this.checkIfCandyOutside();
+        //check if the player encounters a star
+        for(let star of stars){
+            if(this.checkIfCandyInRange(star)){
+                this.getStar(star);
+                console.log(star);
+
+            }
+        }
     }
 
-    checkIfCandyInRange(){
+    checkIfCandyInRange(obj){
         let pos = candy.body.position;
-        if(frog.posX <= pos.x && pos.x <= frog.posX + frog.width
-            && frog.posY <= pos.y && pos.y <= frog.posY + frog.height){
-                this.endLevel(true);
-        }
+       return(obj.posX <= pos.x && pos.x <= obj.posX + obj.width
+            && obj.posY <= pos.y && pos.y <= obj.posY + obj.height);
     }
 
     checkIfCandyOutside(){
@@ -70,21 +85,16 @@ class LevelManager{
     }
 
     endLevel(win){
-        let scoreText;
-        if(win){
-            World.remove(world, candy.body);
-            this.cutRopesToCandy();
-            candy.destroy();
-            replayButton.draw();
-            scoreText = new PIXI.Text("Level completed");
-        }
-        else{
-            replayButton.draw();
-            scoreText = new PIXI.Text("Level failed");
-        }
-        app.stage.addChild(scoreText);
-        scoreText.x = replayButton.sprite.x - replayButton.sprite.width;
-        scoreText.y = replayButton.sprite.y - replayButton.sprite.height * 2;
+        guiManager.setEndLevelScore(win);
+        replayButton.draw();
+        World.remove(world, candy.body);
+        this.cutRopesToCandy();
+        candy.destroy();
+    }
+
+    getStar(st){
+        guiManager.setScore(st.points);
+        st.destroy();
     }
 
     cutRopesToCandy(){
