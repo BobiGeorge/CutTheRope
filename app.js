@@ -22,6 +22,7 @@ let frog;
 let ropes = [];
 let ropePoints = [];
 let stars = [];
+let spikes = [];
 let startCollected = 0;
 
 main();

@@ -4,6 +4,7 @@ class LevelManager{
         candy = new Candy(310,350,40);
         frog = new Frog(1200, 600, 80,80);
         stars.push(new Star(500, 200, 40, 40));
+        spikes.push(new Spike(600, 400, 80,40));
         this.createRopePointWithCandy(310, 160, 10);
         this.createRopePoint(500, 350, 10);
         this.createRopePoint(700,140,10);
@@ -69,6 +70,12 @@ class LevelManager{
 
             }
         }
+        for(let spike of spikes){
+            if(this.checkIfCandyInRange(spike)){
+                console.log(spike);
+                this.endLevel(false);
+            }
+        } 
     }
 
     checkIfCandyInRange(obj){
@@ -89,7 +96,6 @@ class LevelManager{
     endLevel(win){
         guiManager.setEndLevelScore(win);
         replayButton.draw();
-        World.remove(world, candy.body);
         this.cutRopesToCandy();
         candy.destroy();
     }

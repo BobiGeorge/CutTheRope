@@ -32,6 +32,7 @@ class Candy{
     }
     
     destroy(){
+        World.remove(world, candy.body);
         app.stage.removeChild(this.sprite);
     }
 }
