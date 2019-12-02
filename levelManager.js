@@ -3,12 +3,13 @@ class LevelManager{
         this.setBackground();
         candy = new Candy(310,350,40);
         frog = new Frog(1200, 600, 80,80);
-        stars.push(new Star(500, 200, 40, 40, 10));
+        stars.push(new Star(500, 200, 40, 40));
         this.createRopePointWithCandy(310, 160, 10);
         this.createRopePoint(500, 350, 10);
         this.createRopePoint(700,140,10);
         this.createRopePoint(1000, 150, 10);
 
+        guiManager.drawStarCounter();
         replayButton = new ReplayButton();
     }
     setBackground(){
@@ -44,13 +45,13 @@ class LevelManager{
         candy = null;
         ropes = [];
         ropePoints = [];
+        guiManager.clearGui();
         while(app.stage.children[0]) {
              app.stage.removeChild(app.stage.children[0]); 
         }
         Matter.World.clear(world);
         Matter.Engine.clear(engine);
         this.setupLevel();
-        this.replayButton.sprite.interactive = false;
     }
 
     trackCandyStatus(){
@@ -72,7 +73,8 @@ class LevelManager{
 
     checkIfCandyInRange(obj){
         let pos = candy.body.position;
-       return(obj.posX <= pos.x && pos.x <= obj.posX + obj.width
+        // range is extended to not be too precise
+       return(obj.posX - obj.width <= pos.x && pos.x <= obj.posX + obj.width
             && obj.posY <= pos.y && pos.y <= obj.posY + obj.height);
     }
 
@@ -93,7 +95,7 @@ class LevelManager{
     }
 
     getStar(st){
-        guiManager.setScore(st.points);
+        guiManager.collectStar();
         st.destroy();
     }
 

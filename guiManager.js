@@ -1,9 +1,9 @@
 class GUIManager{
     constructor(){
         this.endLevelText;
-        this.scoreText = new PIXI.Text("hai hai");
-        this.setScore(10);
-        app.stage.addChild(this.scoreText);
+        this.starCountText = new PIXI.Text(0);
+        this.starCountText.x = 30;
+        this.starCountText.y = 30;
     }
 
     setEndLevelScore(win){
@@ -17,11 +17,19 @@ class GUIManager{
         this.endLevelText.y = replayButton.sprite.y - replayButton.sprite.height * 2;
         app.stage.addChild(this.endLevelText);
     }
+  
+    drawStarCounter(){
+        app.stage.addChild(this.starCountText);
+    }
 
-    setScore(sc){
-        this.scoreText.text = sc;
-        this.scoreText.x = 222;
-        this.scoreText.y = 222;
-        console.log("wat");
+    collectStar(){
+        let st = parseInt(this.starCountText.text, 10);
+        st += 1;
+        this.starCountText.text = st;;
+    }
+
+    clearGui(){
+        this.endLevelText.text = "";
+        this.starCountText.text = 0;
     }
 }

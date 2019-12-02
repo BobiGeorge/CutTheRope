@@ -1,10 +1,9 @@
 class Star{
-    constructor(x,y, h, w, p){
+    constructor(x,y, h, w){
         this.posX = x;
         this.posY = y;
         this.height = h;
         this.width = w;
-        this.points = p;
 
         this.texture = PIXI.Texture.from("images/star.png");
         this.sprite = new PIXI.Sprite(this.texture);   
@@ -24,5 +23,7 @@ class Star{
 
     destroy(){
         app.stage.removeChild(this.sprite);  
+        this.posX = 0;
+        this.posY = 0;
     }
 }

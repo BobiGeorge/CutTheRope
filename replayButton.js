@@ -18,7 +18,6 @@ class ReplayButton{
     performAction(){
     // this.lvlManager is undefined and I have no idea why
     // it is defined in the contructor
-        console.log("genki");
        levelManager.resetLevel();
     }
 
