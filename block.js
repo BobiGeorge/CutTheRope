@@ -14,10 +14,6 @@ class Block{
         this.sprite.width = w;
         this.sprite.height = h;
 
-        //this.sprite.on('mousedown', this.cut);
-        this.sprite.interactive = true;
-        this.sprite.click = this.cut;
-
         app.stage.addChild(this.sprite);
     }
 

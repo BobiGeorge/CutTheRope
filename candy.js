@@ -31,7 +31,7 @@ class Candy{
     this.sprite.y = pos.y;
     }
     
-    onDown(){
-        console.log("clickedy click");
-    };
+    destroy(){
+        app.stage.removeChild(this.sprite);
+    }
 }

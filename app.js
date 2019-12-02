@@ -3,17 +3,23 @@ console.log(Matter);
 
 const {Engine, World, Body, Bodies, Mouse, MouseConstraint, Constraint, Constraints, Composite, Composites} = Matter;
 
+let screenWidth;
+let screenHeight;
+
 let app;
 let world ;
 let engine;
+let mouseConstraint;
+let grahics;
+
+let cutManager;
+let levelManager;
+let replayButton;
+
 let candy;
 let frog;
 let ropes = [];
 let ropePoints = [];
-let mouseConstraint;
-let grahics;
-let cutManager;
-let levelManager;
 
 main();
 
@@ -30,6 +36,9 @@ function setupWorld(){
     })
     document.body.appendChild(app.view);
 
+    screenWidth = window.innerWidth;
+    screenHeight = window.innerHeight;
+
     grahics = new PIXI.Graphics();
     engine = Engine.create();
     world = engine.world;
@@ -42,10 +51,9 @@ function setupWorld(){
     levelManager = new LevelManager();
 }
 
-
 function loop(){
     grahics.clear();
-    frog.checkIfCandyInRange(candy);
+    levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();
     for(let i = 0; i < ropes.length;i++){
@@ -56,6 +64,7 @@ function loop(){
             levelManager.connectRopeToCandy(ropePoints[i]);
         }
     }
+  //  replayButton.draw();
     requestAnimationFrame(loop);
 } 
 
@@ -72,8 +81,6 @@ document.addEventListener('keydown', (e) => {
             World.remove(world, mouseConstraint);
 
         }
-        
         mouz = !mouz;
     }
-    //candy.cut();
 });

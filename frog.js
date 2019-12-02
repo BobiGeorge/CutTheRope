@@ -25,12 +25,4 @@ class Frog{
         this.sprite.x = this.posX;
         this.sprite.y = this.posY;
     }
-
-    checkIfCandyInRange(cndy){
-        let pos = cndy.body.position;
-        if(this.posX <= pos.x && pos.x <= this.posX + this.width
-            && this.posY <= pos.y && pos.y <= this.posY + this.height){
-                console.log("Where it be");
-            }
-    }
 }
