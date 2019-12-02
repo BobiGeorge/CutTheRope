@@ -5,14 +5,37 @@ class Block{
         this.w = w;
         this.h = h;
         this.body.isStatic = fixed;
+
+        this.texture = PIXI.Texture.from("images/ropeBlock.png");
+        this.sprite = new PIXI.Sprite(this.texture);   
+        this.sprite.anchor.x = 0.5;
+        this.sprite.anchor.y = 0.5;
+
+        this.sprite.width = w;
+        this.sprite.height = h;
+
+        //this.sprite.on('mousedown', this.cut);
+        this.sprite.interactive = true;
+        this.sprite.click = this.cut;
+
+        app.stage.addChild(this.sprite);
     }
 
     draw(){
-        grahics.beginFill(0xFFFF00);
-
         const pos = this.body.position;
-        grahics.drawRect(pos.x,pos.y,this.w, this.h);
-
-        app.stage.addChild(grahics);
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     }
+
+    destroy(){
+        app.stage.removeChild(this.sprite);
+    }
+    // draw(){
+    //     grahics.beginFill(0xFFFF00);
+
+    //     const pos = this.body.position;
+    //     grahics.drawRect(pos.x,pos.y,this.w, this.h);
+
+    //     app.stage.addChild(grahics);
+    // }
 }

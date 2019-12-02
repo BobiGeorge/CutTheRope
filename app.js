@@ -21,10 +21,15 @@ world = engine.world;
 
 let grahics = new PIXI.Graphics();
 
+setBackground();
 candy = new Candy(310,350,40);
 
 SetupLevel();
 Loop();
+
+function main(){
+
+}
 
 const mouse = Mouse.create();
 const optionz = {mouse: mouse}
@@ -40,16 +45,22 @@ function SetupLevel(){
 function Loop(){
     grahics.clear();
     Matter.Engine.update(engine);
-   // candy.draw();
-    candy.otherDraw();
+    candy.draw();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
     for(let i = 0; i < ropePoints.length;i++){
-        ropePoints[i].draw();
         ropePoints[i].checkIfCandyInRadius(candy);
     }
     requestAnimationFrame(Loop);
+}
+
+function setBackground(){
+    let backgroudTexture = PIXI.Texture.from("images/background.png");
+    let backSprite = new PIXI.Sprite(backgroudTexture);   
+    backSprite.height = window.innerHeight;
+    backSprite.width = window.innerWidth;
+    app.stage.addChild(backSprite);
 }
 
 function connectRopeToCandy(rp){

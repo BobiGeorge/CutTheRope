@@ -49,6 +49,7 @@ class Rope{
     cut(){
         for(let block of this.blocks){
             Matter.World.remove(world, block.body, true);
+            block.destroy();
         }
         Matter.World.remove(world, this.constrainToCandy);
         this.blocks = [];
