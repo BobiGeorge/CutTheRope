@@ -3,92 +3,63 @@ console.log(Matter);
 
 const {Engine, World, Body, Bodies, Mouse, MouseConstraint, Constraint, Constraints, Composite, Composites} = Matter;
 
-let app = new PIXI.Application({
-    width: window.innerWidth,
-    height: window.innerHeight
-})
-document.body.appendChild(app.view);
-
+let app;
 let world ;
 let engine;
 let candy;
+let frog;
 let ropes = [];
 let ropePoints = [];
 let mouseConstraint;
+let grahics;
+let cutManager;
+let levelManager;
 
-engine = Engine.create();
-world = engine.world;
-
-let grahics = new PIXI.Graphics();
-
-setBackground();
-candy = new Candy(310,350,40);
-
-SetupLevel();
-Loop();
+main();
 
 function main(){
-
+    setupWorld();
+    levelManager.setupLevel();
+    loop();
 }
 
-const mouse = Mouse.create();
-const optionz = {mouse: mouse}
-mouseConstraint = MouseConstraint.create(engine, optionz);
+function setupWorld(){
+    app = new PIXI.Application({
+        width: window.innerWidth,
+        height: window.innerHeight
+    })
+    document.body.appendChild(app.view);
 
-function SetupLevel(){
-    createRopePointWithCandy(310, 160, 10);
-    createRopePoint(500, 350, 10);
-    createRopePoint(700,140,10);
-    createRopePoint(1000, 150, 10);
+    grahics = new PIXI.Graphics();
+    engine = Engine.create();
+    world = engine.world;
+
+    let mouse = Mouse.create();
+    let optionz = {mouse: mouse}
+    mouseConstraint = MouseConstraint.create(engine, optionz);
+
+    cutManager = new CutManager();
+    levelManager = new LevelManager();
 }
 
-function Loop(){
+
+function loop(){
     grahics.clear();
+    frog.checkIfCandyInRange(candy);
     Matter.Engine.update(engine);
     candy.draw();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
     for(let i = 0; i < ropePoints.length;i++){
-        ropePoints[i].checkIfCandyInRadius(candy);
+        if(ropePoints[i].checkIfCandyInRadius(candy)){
+            levelManager.connectRopeToCandy(ropePoints[i]);
+        }
     }
-    requestAnimationFrame(Loop);
-}
+    requestAnimationFrame(loop);
+} 
 
-function setBackground(){
-    let backgroudTexture = PIXI.Texture.from("images/background.png");
-    let backSprite = new PIXI.Sprite(backgroudTexture);   
-    backSprite.height = window.innerHeight;
-    backSprite.width = window.innerWidth;
-    app.stage.addChild(backSprite);
-}
-
-function connectRopeToCandy(rp){
-    createRope(rp.posX, rp.posY);
-    rp.isCut = true;
-}
-
-function createRope(x,y){
-    newR = new Rope(x, y, candy);
-    ropes.push(newR);
-}
-
-function createRopePoint(x,y,r){
-    newRP = new RopePoint(x, y, r)
-    ropePoints.push(newRP);
-    return newRP;
-}
-
-function createRopePointWithCandy(x,y, r){
-    connectRopeToCandy(createRopePoint(x, y, r));
-}
-
-function resetLevel(){
-    candy = null;
-    ropes = [];
-    ropePoints = [];
-}
-
+// testing purposes only
 let mouz = false;
 document.addEventListener('keydown', (e) => {
     if(e.keyCode == 37){
@@ -106,27 +77,3 @@ document.addEventListener('keydown', (e) => {
     }
     //candy.cut();
 });
-
-let isMouseDown = false;
-document.addEventListener('mousedown', (e) =>{
-    isMouseDown = true;
-})
-
-let previousPoint = undefined;
-document.addEventListener('mousemove', (e2) => {
-    if (isMouseDown){
-        if(previousPoint){
-            let currentPoint = {x: e2.clientX, y: e2.clientY};
-            ropes.forEach(rope => {
-                if(rope.checkForCut(currentPoint, previousPoint)){
-                    rope.cut();
-                }
-            });
-        }
-        previousPoint = { x: e2.clientX, y:e2.clientY}
-    }
-})
-
-document.addEventListener('mouseup', (e) =>{
-    isMouseDown = false;
-})

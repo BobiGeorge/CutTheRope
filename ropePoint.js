@@ -4,7 +4,7 @@ class RopePoint{
         this.posY = y;
         this.pointRadius = r;
         this.attachRadius = 200;
-        this.isCut = false;
+        this.isActive = false;
         this.attachRadiusSquare = this.attachRadius * this.attachRadius;
 
         this.texture = PIXI.Texture.from("images/ropePoint.png");
@@ -14,10 +14,6 @@ class RopePoint{
 
         this.sprite.width = r*2;
         this.sprite.height = r*2;
-
-        //this.sprite.on('mousedown', this.cut);
-        this.sprite.interactive = true;
-        this.sprite.click = this.cut;
 
         app.stage.addChild(this.sprite);
          
@@ -37,12 +33,10 @@ class RopePoint{
     // }
 
     checkIfCandyInRadius(cndy){
-        if(this.isCut){
+        if(this.isActive){
             return;
         }
         const pos = cndy.body.position;
-        if((pos.x - this.posX)*(pos.x - this.posX) + (pos.y - this.posY)*(pos.y - this.posY) < this.attachRadiusSquare){
-            connectRopeToCandy(this);
-        }
+        return((pos.x - this.posX)*(pos.x - this.posX) + (pos.y - this.posY)*(pos.y - this.posY) < this.attachRadiusSquare);
     }
 }
