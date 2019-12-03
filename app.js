@@ -23,6 +23,7 @@ let ropes = [];
 let ropePoints = [];
 let stars = [];
 let spikes = [];
+let bubbles=[];
 let startCollected = 0;
 
 main();
@@ -61,6 +62,7 @@ function loop(){
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();
+    candy.floatUp();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
@@ -89,3 +91,17 @@ document.addEventListener('keydown', (e) => {
         mouz = !mouz;
     }
 });
+
+// PIXIjs sprite.click method does not work properly, so I doing a workaround 
+function printMousePos(event) {
+    for(let bu of bubbles){
+        if(bu.posX - bu.width <= event.clientX &&event.clientX <= bu.posX + bu.width
+        && bu.posY <=event.clientY && event.clientY <= bu.posY + bu.height){
+            candy.floatToggle(false, null);
+            bu.destroy();
+        }     
+    } 
+    console.log("floatsu " +  candy.float);
+  }
+  
+  document.addEventListener("click", printMousePos);

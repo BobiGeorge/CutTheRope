@@ -13,6 +13,9 @@ class Candy{
         this.sprite.width = r*2;
         this.sprite.height = r*2;
 
+        this.float = false;
+        this.bubble;
+
         app.stage.addChild(this.sprite);
     }
 
@@ -34,5 +37,27 @@ class Candy{
     destroy(){
         World.remove(world, candy.body);
         app.stage.removeChild(this.sprite);
+    }
+
+    floatToggle(tg, b){
+        this.float = tg;
+        if(tg == false){
+            Matter.Body.setVelocity(this.body, { x: 0, y: 0});
+
+        }
+        this.bubble = b;
+    }
+
+    floatUp(){
+        if(!this.float){
+            return;
+        }
+        console.log("my god");
+        const pos = this.body.position;
+        Matter.Body.setVelocity(this.body, { x: 0, y: this.body.position.y -2  - this.body.position.y });
+
+        this.bubble.posX = pos.x;
+        this.bubble.posY = pos.y;
+        this.bubble.draw();
     }
 }

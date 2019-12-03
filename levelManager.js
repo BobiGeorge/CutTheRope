@@ -5,6 +5,7 @@ class LevelManager{
         frog = new Frog(1200, 600, 80,80);
         stars.push(new Star(500, 200, 40, 40));
         spikes.push(new Spike(600, 400, 80,40));
+        bubbles.push(new Bubble(400, 600, 100,100));
         this.createRopePointWithCandy(310, 160, 10);
         this.createRopePoint(500, 350, 10);
         this.createRopePoint(700,140,10);
@@ -42,7 +43,6 @@ class LevelManager{
     }
     
     resetLevel(){
-        console.log("imma mario");
         candy = null;
         ropes = [];
         ropePoints = [];
@@ -70,10 +70,19 @@ class LevelManager{
 
             }
         }
+        //check if player hits spikes
         for(let spike of spikes){
             if(this.checkIfCandyInRange(spike)){
-                console.log(spike);
                 this.endLevel(false);
+            }
+        } 
+        //check if player enters bubble
+        for(let bu of bubbles){
+            if(this.checkIfCandyInRange(bu)){
+                if(!bu.hasCandy){
+                    candy.floatToggle(true, bu);
+                    bu.attachCandy();
+                }
             }
         } 
     }
@@ -88,7 +97,7 @@ class LevelManager{
     checkIfCandyOutside(){
         let pos = candy.body.position;
         if(0 > pos.x || pos.x > screenWidth
-            || 0 > pos.y || pos.y > screenHeight){
+            || -50 > pos.y || pos.y > screenHeight + 10){
                 this.endLevel(false);
         }
     }
