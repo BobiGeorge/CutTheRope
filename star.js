@@ -10,7 +10,7 @@ class Star extends GameObject{
     }
 
     destroy(){
-        app.stage.removeChild(this.sprite);  
+        stage.removeChild(this.sprite);  
         this.posX = 0;
         this.posY = 0;
     }

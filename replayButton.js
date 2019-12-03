@@ -11,7 +11,7 @@ class ReplayButton{
         this.sprite.visible = false;
         this.sprite.on("pointerdown", this.performAction);
 
-        app.stage.addChild(this.sprite);
+        stage.addChild(this.sprite);
  
     }
 

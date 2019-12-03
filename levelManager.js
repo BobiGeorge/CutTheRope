@@ -21,7 +21,7 @@ class LevelManager{
         let backSprite = new PIXI.Sprite(backgroudTexture);   
         backSprite.height = window.innerHeight;
         backSprite.width = window.innerWidth;
-        app.stage.addChild(backSprite);
+        stage.addChild(backSprite);
     }
     
     connectRopeToCandy(rp){
@@ -49,8 +49,8 @@ class LevelManager{
         ropes = [];
         ropePoints = [];
         guiManager.clearGui();
-        while(app.stage.children[0]) {
-            app.stage.removeChild(app.stage.children[0]); 
+        while(stage.children[0]) {
+            stage.removeChild(stage.children[0]); 
         }
         Matter.World.clear(world);
         Matter.Engine.clear(engine);

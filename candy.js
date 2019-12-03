@@ -15,7 +15,7 @@ class Candy{
         this.float = false;
         this.bubble;
 
-        app.stage.addChild(this.sprite);
+        stage.addChild(this.sprite);
     }
 
     draw(){
@@ -26,7 +26,7 @@ class Candy{
     
     destroy(){
         World.remove(world, candy.body);
-        app.stage.removeChild(this.sprite);
+        stage.removeChild(this.sprite);
     }
 
     floatToggle(tg, b){

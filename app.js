@@ -6,6 +6,8 @@ const {Engine, World, Body, Bodies, Mouse, MouseConstraint, Constraint, Constrai
 let screenWidth;
 let screenHeight;
 
+let renderer;
+let stage;
 let app;
 let world ;
 let engine;
@@ -42,14 +44,17 @@ function main(){
     setupWorld();
     levelManager.setupLevel();
     loop();
+    console.log(renderer.view);
 }
 
 function setupWorld(){
-    app = new PIXI.Application({
+    renderer = new PIXI.Renderer({
         width: window.innerWidth,
         height: window.innerHeight
     })
-    document.body.appendChild(app.view);
+    document.body.appendChild(renderer.view);
+
+    stage = new PIXI.Container();
 
     screenWidth = window.innerWidth;
     screenHeight = window.innerHeight;
@@ -68,6 +73,7 @@ function setupWorld(){
 }
 
 function loop(){
+    renderer.render(stage);
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();

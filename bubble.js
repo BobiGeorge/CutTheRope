@@ -15,7 +15,7 @@ class Bubble extends GameObject{
     }
 
     destroy(){
-        app.stage.removeChild(this.sprite);
+        stage.removeChild(this.sprite);
     }
 
 

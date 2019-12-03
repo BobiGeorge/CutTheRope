@@ -14,7 +14,7 @@ class Block{
         this.sprite.width = w;
         this.sprite.height = h;
 
-        app.stage.addChild(this.sprite);
+        stage.addChild(this.sprite);
     }
 
     draw(){
@@ -24,7 +24,7 @@ class Block{
     }
 
     destroy(){
-        app.stage.removeChild(this.sprite);
+        stage.removeChild(this.sprite);
     }
     // draw(){
     //     grahics.beginFill(0xFFFF00);

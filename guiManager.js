@@ -15,11 +15,11 @@ class GUIManager{
         }
         this.endLevelText.x = replayButton.sprite.x - replayButton.sprite.width;
         this.endLevelText.y = replayButton.sprite.y - replayButton.sprite.height * 2;
-        app.stage.addChild(this.endLevelText);
+        stage.addChild(this.endLevelText);
     }
   
     drawStarCounter(){
-        app.stage.addChild(this.starCountText);
+        stage.addChild(this.starCountText);
     }
 
     collectStar(){

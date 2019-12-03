@@ -13,6 +13,6 @@ class GameObject{
         this.sprite.width = w;
         this.sprite.height = h;
         
-        app.stage.addChild(this.sprite);
+        stage.addChild(this.sprite);
     }
 }

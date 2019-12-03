@@ -15,7 +15,7 @@ class RopePoint extends GameObject{
         this.areaSprite.width = this.attachRadius * 2;
         this.areaSprite.height = this.attachRadius * 2;
 
-        app.stage.addChild(this.areaSprite);
+        stage.addChild(this.areaSprite);
         this.draw();
     }
 
@@ -29,7 +29,7 @@ class RopePoint extends GameObject{
 
     connectToCandy(){
         this.isActive = true;
-        app.stage.removeChild(this.areaSprite);
+        stage.removeChild(this.areaSprite);
     }
     // draw(){
     //     grahics.beginFill(0xFFFF00);
