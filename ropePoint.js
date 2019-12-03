@@ -1,20 +1,34 @@
 class RopePoint extends GameObject{
-    constructor(x,y,w,h,texture){
+    constructor(x,y,w,h,texture, areaTexture){
         super(x,y,w,h,texture);
 
         this.pointRadius = w/2;
-        this.attachRadius = 200;
+        this.attachRadius = 150;
         this.isActive = false;
         this.attachRadiusSquare = this.attachRadius * this.attachRadius;
         
+        this.areaSprite = new PIXI.Sprite(areaTexture);   
+        this.areaSprite.anchor.x = 0.5;
+        this.areaSprite.anchor.y = 0.5;
+        this.areaSprite.width = this.attachRadius * 2;
+        this.areaSprite.height = this.attachRadius * 2;
+
+        app.stage.addChild(this.areaSprite);
         this.draw();
     }
 
     draw(){
         this.sprite.x = this.posX;
         this.sprite.y = this.posY;
+
+        this.areaSprite.x = this.posX;
+        this.areaSprite.y = this.posY;
     }
 
+    connectToCandy(){
+        this.isActive = true;
+        app.stage.removeChild(this.areaSprite);
+    }
     // draw(){
     //     grahics.beginFill(0xFFFF00);
     //     grahics.drawCircle(this.posX,this.posY,this.pointRadius);

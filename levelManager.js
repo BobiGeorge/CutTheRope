@@ -24,7 +24,7 @@ class LevelManager{
     
     connectRopeToCandy(rp){
         this.createRope(rp.posX, rp.posY);
-        rp.isActive = true;
+        rp.connectToCandy();
     }
     
     createRope(x,y){
@@ -33,7 +33,7 @@ class LevelManager{
     }
     
     createRopePoint(x,y,w,h){
-        let newRP = new RopePoint(x, y, w,h,ropePointsTexture)
+        let newRP = new RopePoint(x, y, w,h,ropePointsTexture, areaRPTexture);
         ropePoints.push(newRP);
         return newRP;
     }

@@ -33,6 +33,7 @@ let frogTexture =  PIXI.Texture.from("images/frog1.png");
 let ropePointsTexture = PIXI.Texture.from("images/ropePoint.png");
 let spikeTexture = PIXI.Texture.from("images/spike.png");
 let starTexture = PIXI.Texture.from("images/star.png");
+let areaRPTexture = PIXI.Texture.from("images/pointArea.png");
 
 console.log(candyTexture);
 main();
@@ -54,6 +55,7 @@ function setupWorld(){
     screenHeight = window.innerHeight;
 
     grahics = new PIXI.Graphics();
+
     engine = Engine.create();
     world = engine.world;
 
@@ -67,6 +69,7 @@ function setupWorld(){
 }
 
 function loop(){
+    grahics.clear();
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();
@@ -75,6 +78,7 @@ function loop(){
         ropes[i].draw();
     }
     for(let i = 0; i < ropePoints.length;i++){
+        ropePoints[i].draw();
         if(ropePoints[i].checkIfCandyInRadius(candy)){
             levelManager.connectRopeToCandy(ropePoints[i]);
         }
