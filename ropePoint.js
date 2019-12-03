@@ -1,22 +1,12 @@
-class RopePoint{
-    constructor(x,y, r){
-        this.posX = x;
-        this.posY = y;
-        this.pointRadius = r;
+class RopePoint extends GameObject{
+    constructor(x,y,w,h,texture){
+        super(x,y,w,h,texture);
+
+        this.pointRadius = w/2;
         this.attachRadius = 200;
         this.isActive = false;
         this.attachRadiusSquare = this.attachRadius * this.attachRadius;
-
-        this.texture = PIXI.Texture.from("images/ropePoint.png");
-        this.sprite = new PIXI.Sprite(this.texture);   
-        this.sprite.anchor.x = 0.5;
-        this.sprite.anchor.y = 0.5;
-
-        this.sprite.width = r*2;
-        this.sprite.height = r*2;
-
-        app.stage.addChild(this.sprite);
-         
+        
         this.draw();
     }
 

@@ -1,19 +1,7 @@
-class Star{
-    constructor(x,y, h, w){
-        this.posX = x;
-        this.posY = y;
-        this.height = h;
-        this.width = w;
+class Star extends GameObject{
+    constructor(x,y, h, w, texture){
+        super(x,y,w,h,texture);
 
-        this.texture = PIXI.Texture.from("images/star.png");
-        this.sprite = new PIXI.Sprite(this.texture);   
-        this.sprite.anchor.x = 0.5;
-        this.sprite.anchor.y = 0.5;
-
-        this.sprite.width = w;
-        this.sprite.height = h;
-
-        app.stage.addChild(this.sprite);
         this.draw();
     }
     draw(){

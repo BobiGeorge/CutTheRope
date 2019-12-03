@@ -1,22 +1,7 @@
-class Frog{
-    constructor(x,y,w,h){
-        this.posX = x;
-        this.posY = y;
-        this.width = w;
-        this.height = h;
+class Frog extends GameObject{
+    constructor(x,y,w,h,texture){
+        super(x,y,w,h,texture);
 
-        this.texture = PIXI.Texture.from("images/frog1.png");
-        this.sprite = new PIXI.Sprite(this.texture);   
-        this.sprite.anchor.x = 0.5;
-        this.sprite.anchor.y = 0.5;
-
-        this.sprite.width = w;
-        this.sprite.height = h;
-
-        //this.sprite.on('mousedown', this.cut);
-
-
-        app.stage.addChild(this.sprite);
         this.draw();
     }
 

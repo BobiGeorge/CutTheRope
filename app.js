@@ -26,6 +26,15 @@ let spikes = [];
 let bubbles=[];
 let startCollected = 0;
 
+let candyTexture = PIXI.Texture.from("images/ctrCandy.png");
+let blockTexture = PIXI.Texture.from("images/ropeBlock.png");
+let bubbleTexture = PIXI.Texture.from("images/bubble.png");
+let frogTexture =  PIXI.Texture.from("images/frog1.png");
+let ropePointsTexture = PIXI.Texture.from("images/ropePoint.png");
+let spikeTexture = PIXI.Texture.from("images/spike.png");
+let starTexture = PIXI.Texture.from("images/star.png");
+
+console.log(candyTexture);
 main();
 
 function main(){
@@ -58,7 +67,6 @@ function setupWorld(){
 }
 
 function loop(){
-    //grahics.clear();
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();
@@ -71,7 +79,6 @@ function loop(){
             levelManager.connectRopeToCandy(ropePoints[i]);
         }
     }
-  //  replayButton.draw();
     requestAnimationFrame(loop);
 } 
 
