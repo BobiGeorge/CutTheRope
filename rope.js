@@ -1,15 +1,16 @@
 class Rope{
 
-    constructor(x,y,cndy){
+    constructor(x,y,cndy, ropeLength){
         this.prev = null;
         this.blocks = [];
+        this.ropeLength = ropeLength;
         this.createRope(x,y);
         this.attachCandy(cndy);
         this.constrainToCandy;
     }
 
     createRope(x, y){
-        for (let i = 0; i < 200; i+= 21){
+        for (let i = 0; i < this.ropeLength; i+= 20){
             let fixed = !this.prev;
             let b1 = new Block(x + i, y + i, 10, 20, fixed);
             this.blocks.push(b1)

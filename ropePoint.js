@@ -1,11 +1,13 @@
 class RopePoint extends GameObject{
-    constructor(x,y,w,h,texture, areaTexture){
+    constructor(x,y,w,h,texture, areaTexture, ropeLength){
         super(x,y,w,h,texture);
 
         this.pointRadius = w/2;
         this.attachRadius = 150;
         this.isActive = false;
         this.attachRadiusSquare = this.attachRadius * this.attachRadius;
+
+        this.ropeLength = ropeLength;
         
         this.areaSprite = new PIXI.Sprite(areaTexture);   
         this.areaSprite.anchor.x = 0.5;

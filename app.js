@@ -55,7 +55,6 @@ function setupWorld(){
     screenHeight = window.innerHeight;
 
     grahics = new PIXI.Graphics();
-
     engine = Engine.create();
     world = engine.world;
 
@@ -69,7 +68,6 @@ function setupWorld(){
 }
 
 function loop(){
-    grahics.clear();
     levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
     candy.draw();
@@ -78,7 +76,6 @@ function loop(){
         ropes[i].draw();
     }
     for(let i = 0; i < ropePoints.length;i++){
-        ropePoints[i].draw();
         if(ropePoints[i].checkIfCandyInRadius(candy)){
             levelManager.connectRopeToCandy(ropePoints[i]);
         }

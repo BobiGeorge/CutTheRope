@@ -1,16 +1,18 @@
 class LevelManager{
     setupLevel(){
         this.setBackground();
-        candy = new Candy(310,350,40, candyTexture);
+        candy = new Candy(310,180,40, candyTexture);
+        candy.isStatic = true;
         frog = new Frog(1200, 600, 80,80, frogTexture);
-        stars.push(new Star(500, 200, 40, 40, starTexture));
-        spikes.push(new Spike(600, 400, 80,40, spikeTexture));
-        bubbles.push(new Bubble(400, 600, 100,100, bubbleTexture));
-        this.createRopePointWithCandy(310, 160, 20,20);
-        this.createRopePoint(500, 350, 20,20);
-        this.createRopePoint(700,140,20,20);
-        this.createRopePoint(1000, 150, 20,20);
+        stars.push(new Star(450, 40, 40, 40, starTexture));
+        spikes.push(new Spike(1000, 400, 80,40, spikeTexture));
+        bubbles.push(new Bubble(950, 600, 100,100, bubbleTexture));
+        this.createRopePointWithCandy(310, 50, 20,20,80);
+        this.createRopePointWithCandy(290, 400, 20,20,50);
+        this.createRopePointWithCandy(650,140,20,20, 200);
+        this.createRopePoint(1200, 500, 20,20,120);
 
+        candy.isStatic = false;
         guiManager.drawStarCounter();
         replayButton = new ReplayButton();
     }
@@ -23,23 +25,23 @@ class LevelManager{
     }
     
     connectRopeToCandy(rp){
-        this.createRope(rp.posX, rp.posY);
+        this.createRope( rp);
         rp.connectToCandy();
     }
     
-    createRope(x,y){
-        let newR = new Rope(x, y, candy);
+    createRope(rp){
+        let newR = new Rope(rp.posX, rp.posY, candy,rp.ropeLength);
         ropes.push(newR);
     }
     
-    createRopePoint(x,y,w,h){
-        let newRP = new RopePoint(x, y, w,h,ropePointsTexture, areaRPTexture);
+    createRopePoint(x,y,w,h,rpLength){
+        let newRP = new RopePoint(x, y, w,h,ropePointsTexture, areaRPTexture,rpLength);
         ropePoints.push(newRP);
         return newRP;
     }
     
-    createRopePointWithCandy(x,y, w,h){
-        this.connectRopeToCandy(this.createRopePoint(x, y, w, h));
+    createRopePointWithCandy(x,y, w,h, rpLength){
+        this.connectRopeToCandy(this.createRopePoint(x, y, w, h, rpLength));
     }
     
     resetLevel(){
@@ -48,7 +50,7 @@ class LevelManager{
         ropePoints = [];
         guiManager.clearGui();
         while(app.stage.children[0]) {
-             app.stage.removeChild(app.stage.children[0]); 
+            app.stage.removeChild(app.stage.children[0]); 
         }
         Matter.World.clear(world);
         Matter.Engine.clear(engine);
@@ -96,8 +98,8 @@ class LevelManager{
 
     checkIfCandyOutside(){
         let pos = candy.body.position;
-        if(0 > pos.x || pos.x > screenWidth
-            || -50 > pos.y || pos.y > screenHeight + 10){
+        if(0 > pos.x || pos.x > window.innerWidth
+            || -50 > pos.y || pos.y > window.innerHeight + 10){
                 this.endLevel(false);
         }
     }

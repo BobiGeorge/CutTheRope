@@ -43,7 +43,7 @@ class Candy{
             return;
         }
         const pos = this.body.position;
-        Matter.Body.setVelocity(this.body, { x: 0, y: this.body.position.y -2  - this.body.position.y });
+        Matter.Body.setVelocity(this.body, { x: 0, y: this.body.position.y -3  - this.body.position.y });
 
         this.bubble.posX = pos.x;
         this.bubble.posY = pos.y;
