@@ -1,7 +1,7 @@
 class Resize{
     resizeScreen () {
-        const vpw = window.innerWidth;  // Width of the viewport
-        const vph = window.innerHeight; // Height of the viewport
+        const vpw = screenWidth;  // Width of the viewport
+        const vph = screenHeight; // Height of the viewport
         let nvw; // New game width
         let nvh; // New game height
     

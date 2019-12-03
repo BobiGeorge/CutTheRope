@@ -25,7 +25,7 @@ class ReplayButton{
         this.sprite.interactive = true;
         this.sprite.buttonMode = true;
         this.sprite.visible = true;
-        this.sprite.x = window.innerWidth/2;
-        this.sprite.y = window.innerHeight/2;
+        this.sprite.x = screenWidth/2;
+        this.sprite.y = screenHeight/2;
     }
 }

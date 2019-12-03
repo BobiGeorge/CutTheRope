@@ -19,8 +19,8 @@ class LevelManager{
     setBackground(){
         let backgroudTexture = PIXI.Texture.from("images/background.png");
         let backSprite = new PIXI.Sprite(backgroudTexture);   
-        backSprite.height = window.innerHeight;
-        backSprite.width = window.innerWidth;
+        backSprite.height = screenHeight;
+        backSprite.width = screenWidth;
         stage.addChild(backSprite);
     }
     
@@ -98,8 +98,8 @@ class LevelManager{
 
     checkIfCandyOutside(){
         let pos = candy.body.position;
-        if(0 > pos.x || pos.x > window.innerWidth
-            || -50 > pos.y || pos.y > window.innerHeight + 10){
+        if(0 > pos.x || pos.x > screenWidth
+            || -50 > pos.y || pos.y > screenHeight + 10){
                 this.endLevel(false);
         }
     }
@@ -109,6 +109,7 @@ class LevelManager{
         replayButton.draw();
         this.cutRopesToCandy();
         candy.destroy();
+        this.popBubleWithCandy();
     }
 
     getStar(st){
@@ -120,6 +121,14 @@ class LevelManager{
         for(let rp of ropes){
             if(rp.constrainToCandy){
                 rp.cut();
+            }
+        }
+    }
+
+    popBubleWithCandy(){
+        for(let bb of bubbles){
+            if(bb.hasCandy){
+                bb.destroy();
             }
         }
     }

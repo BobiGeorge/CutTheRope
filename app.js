@@ -3,8 +3,8 @@ console.log(Matter);
 
 const {Engine, World, Body, Bodies, Mouse, MouseConstraint, Constraint, Constraints, Composite, Composites} = Matter;
 
-let screenWidth;
-let screenHeight;
+let screenWidth = 1400;
+let screenHeight = 720;
 
 let renderer;
 let stage;
@@ -44,20 +44,20 @@ function main(){
     setupWorld();
     levelManager.setupLevel();
     loop();
-    console.log(renderer.view);
+    console.log(renderer.view.getBoundingClientRect());
 }
 
 function setupWorld(){
     renderer = new PIXI.Renderer({
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: screenWidth,
+        height: screenHeight
     })
     document.body.appendChild(renderer.view);
 
     stage = new PIXI.Container();
 
-    screenWidth = window.innerWidth;
-    screenHeight = window.innerHeight;
+    // screenWidth = window.innerWidth;
+    // screenHeight = window.innerHeight;
 
     grahics = new PIXI.Graphics();
     engine = Engine.create();
@@ -119,3 +119,12 @@ function printMousePos(event) {
   }
   
   document.addEventListener("click", printMousePos);
+
+  function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+
+}
