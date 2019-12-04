@@ -33,7 +33,6 @@ class Candy{
         this.float = tg;
         if(tg == false){
             Matter.Body.setVelocity(this.body, { x: 0, y: 0});
-
         }
         this.bubble = b;
     }

@@ -1,16 +1,20 @@
 class LevelManager{
     setupLevel(){
         this.setBackground();
-        candy = new Candy(310,180,40, candyTexture);
+        candy = new Candy(310,280,40, candyTexture);
         candy.isStatic = true;
-        frog = new Frog(1200, 600, 80,80, frogTexture);
-        stars.push(new Star(450, 40, 40, 40, starTexture));
-        spikes.push(new Spike(1000, 400, 80,40, spikeTexture));
-        bubbles.push(new Bubble(950, 600, 100,100, bubbleTexture));
-        this.createRopePointWithCandy(310, 50, 20,20,80);
+        frog = new Frog(1150, 200, 80,80, frogTexture);
+        stars.push(new Star(460, 40, 40, 40, starTexture));
+        stars.push(new Star(820, 450, 40, 40, starTexture));
+        stars.push(new Star(1150, 300, 40, 40, starTexture));
+        spikes.push(new Spike(880, 400, 80,40, spikeTexture));
+        spikes.push(new Spike(960, 400, 80,40, spikeTexture));
+        bubbles.push(new Bubble(960, 600, 100,100, bubbleTexture));
+        bubbles.push(new Bubble(1170, 600, 100,100, bubbleTexture));
+        this.createRopePointWithCandy(310, 50, 20,20,120);
         this.createRopePointWithCandy(290, 400, 20,20,50);
         this.createRopePointWithCandy(650,140,20,20, 200);
-        this.createRopePoint(1200, 500, 20,20,120);
+        this.createRopePoint(1070, 500, 20,20,100);
 
         candy.isStatic = false;
         guiManager.drawStarCounter();
@@ -92,7 +96,7 @@ class LevelManager{
     checkIfCandyInRange(obj){
         let pos = candy.body.position;
         // range is extended to not be too precise
-       return(obj.posX - obj.width <= pos.x && pos.x <= obj.posX + obj.width
+       return(obj.posX - obj.width/2 <= pos.x && pos.x <= obj.posX + obj.width/2
             && obj.posY <= pos.y && pos.y <= obj.posY + obj.height);
     }
 
