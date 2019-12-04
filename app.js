@@ -19,6 +19,7 @@ let levelManager;
 let guiManager;
 let replayButton;
 
+// game objects
 let candy;
 let frog;
 let ropes = [];
@@ -28,6 +29,7 @@ let spikes = [];
 let bubbles=[];
 let startCollected = 0;
 
+//defining the game objects textures
 let candyTexture = PIXI.Texture.from("images/ctrCandy.png");
 let blockTexture = PIXI.Texture.from("images/ropeBlock.png");
 let bubbleTexture = PIXI.Texture.from("images/bubble.png");
@@ -37,14 +39,16 @@ let spikeTexture = PIXI.Texture.from("images/spike.png");
 let starTexture = PIXI.Texture.from("images/star.png");
 let areaRPTexture = PIXI.Texture.from("images/pointArea.png");
 
-console.log(candyTexture);
+//start
 main();
 
 function main(){
     setupWorld();
     levelManager.setupLevel();
     loop();
-    console.log(renderer.view.getBoundingClientRect());
+
+    //setting up the event listener
+    document.addEventListener("click", printMousePos);
 }
 
 function setupWorld(){
@@ -55,9 +59,6 @@ function setupWorld(){
     document.body.appendChild(renderer.view);
 
     stage = new PIXI.Container();
-
-    // screenWidth = window.innerWidth;
-    // screenHeight = window.innerHeight;
 
     grahics = new PIXI.Graphics();
     engine = Engine.create();
@@ -74,13 +75,18 @@ function setupWorld(){
 
 function loop(){
     renderer.render(stage);
-    levelManager.trackCandyStatus()
     Matter.Engine.update(engine);
+
+    //looking out for candy interactions
+    levelManager.trackCandyStatus()
+
     candy.draw();
     candy.floatUp();
     for(let i = 0; i < ropes.length;i++){
         ropes[i].draw();
     }
+
+    //looking out for candy getting in range of rope points
     for(let i = 0; i < ropePoints.length;i++){
         if(ropePoints[i].checkIfCandyInRadius(candy)){
             levelManager.connectRopeToCandy(ropePoints[i]);
@@ -90,6 +96,7 @@ function loop(){
 } 
 
 // testing purposes only
+// allows to move interactable game objects
 let mouz = false;
 document.addEventListener('keydown', (e) => {
     if(e.keyCode == 37){
@@ -106,7 +113,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// PIXIjs sprite.click method does not work properly, so I doing a workaround 
+// PIXIjs sprite.click method does not work properly, so this is a workaround 
+// it might be interfering with the Matter.js library
 function printMousePos(event) {
     for(let bu of bubbles){
         if(bu.posX - bu.width <= event.clientX &&event.clientX <= bu.posX + bu.width
@@ -115,16 +123,5 @@ function printMousePos(event) {
             bu.destroy();
         }     
     } 
-    console.log("floatsu " +  candy.float);
-  }
-  
-  document.addEventListener("click", printMousePos);
-
-  function getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
-
 }
+  

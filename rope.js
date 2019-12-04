@@ -1,5 +1,6 @@
 class Rope{
 
+    // due to rope's unique properties, it does not inherit game object
     constructor(x,y,cndy, ropeLength){
         this.prev = null;
         this.blocks = [];
@@ -61,7 +62,6 @@ class Rope{
             let first = this.blocks[i].body.position;
             let second = this.blocks[i+1].body.position;
             if(this.intersectRect(this.createRect(p1, p2), this.createRect(first, second))){
-                console.log("Yes i am");
                 return true;
             }
         }
